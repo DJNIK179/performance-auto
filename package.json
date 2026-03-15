@@ -1,0 +1,21 @@
+{
+  "name": "performance-auto",
+  "private": true,
+  "scripts": {
+    "dev": "http-server . -p 3000 -c-1 -o",
+    "start": "http-server . -p 3000 -c-1",
+    "tunnel": "wait-on http://localhost:3000 && tunnelmole 3000",
+    "tunnel:localtunnel": "wait-on http://localhost:3000 && lt --port 3000",
+    "tunnel:cloudflare": "wait-on http://localhost:3000 && cloudflared tunnel --protocol http2 --edge-ip-version 4 --url http://127.0.0.1:3000",
+    "demo": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\demo.ps1",
+    "stop": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$ports = @(3000, 20241); foreach ($port in $ports) { Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue } }; Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'tunnelmole|cloudflared|lt --port 3000|localtunnel|http-server \\\\. -p 3000|wait-on http://localhost:3000|concurrently -n server,tunnel' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }\""
+  },
+  "devDependencies": {
+    "cloudflared": "^0.7.1",
+    "concurrently": "^9.1.0",
+    "http-server": "^14.1.1",
+    "localtunnel": "^2.0.2",
+    "tunnelmole": "^2.4.0",
+    "wait-on": "^7.2.0"
+  }
+}
