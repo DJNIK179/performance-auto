@@ -5,1530 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Shelby Car | Детейлинг центр в Москве</title>
-    <style>
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #161616;
-            --accent: #e63946;
-            --text-main: #ffffff;
-            --text-gray: #a0a0a0;
-            --container-width: 1300px;
-            --transition: 0.3s ease;
-            --header-top-height: 40px;
-            --header-bot-height: 76px;
-            --header-height: calc(var(--header-top-height) + var(--header-bot-height));
-            --logo-width: 180px;
-            --footer-padding-x: 20px;
-            --footer-gap-row: 48px;
-            --footer-gap-col: 56px;
-            --footer-bottom-gap: 44px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
-        }
-
-        .container {
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 20px;
-            padding-left: max(20px, env(safe-area-inset-left));
-            padding-right: max(20px, env(safe-area-inset-right));
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        /* --- ШАПКА --- */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: #0d0d0d;
-            border-bottom: 1px solid #1a1a1a;
-            padding-top: env(safe-area-inset-top);
-        }
-
-        .header__logo {
-            position: absolute;
-            top: env(safe-area-inset-top, 0);
-            left: max(20px, calc((100vw - var(--container-width)) / 2 + 20px));
-            width: var(--logo-width);
-            height: var(--header-height);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
-        }
-
-        .header__logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: left center;
-            display: block;
-        }
-
-        /* Верхняя строка: телефон, соцсети, кнопка заказа */
-        .header-top {
-            background: #000;
-            font-size: 13px;
-            border-bottom: 1px solid #1a1a1a;
-            min-height: var(--header-top-height);
-        }
-
-        .header-top__inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: var(--header-top-height);
-            padding-left: calc(var(--logo-width) + 40px);
-            padding-right: max(20px, env(safe-area-inset-right));
-        }
-
-        .header-top__left {
-            display: flex;
-            align-items: center;
-        }
-
-        .header-top__contacts {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .header-top__right {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .header-top__contacts a {
-            color: var(--text-gray);
-        }
-
-        .header-top__contacts a:hover {
-            color: #fff;
-        }
-
-        .header-top__nav {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .header-top__nav a {
-            color: var(--text-gray);
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-        .header-top__nav a:hover {
-            color: #fff;
-        }
-
-        .header-top__write {
-            background: var(--accent);
-            color: #fff;
-            padding: 8px 18px;
-            border-radius: 0;
-            font-weight: 600;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .header-top__write:hover {
-            opacity: 0.9;
-            color: #fff;
-        }
-
-        /* Основная шапка: логотип + навигация */
-        .header-bot {
-            background: #0d0d0d;
-            height: var(--header-bot-height);
-        }
-
-        .header-bot__inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 40px;
-            height: 100%;
-            padding-left: calc(var(--logo-width) + 30px);
-            padding-right: max(20px, env(safe-area-inset-right));
-        }
-
-        .header-bot__navigation {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2px;
-            flex-wrap: wrap;
-        }
-
-        .nav__item {
-            position: relative;
-        }
-
-        .nav__link {
-            font-size: 12px;
-            text-transform: uppercase;
-            font-weight: 500;
-            padding: 10px 12px;
-            white-space: nowrap;
-            color: #e0e0e0;
-        }
-
-        .nav__link:hover {
-            color: #fff;
-        }
-
-        .nav__item:hover>.nav__link {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        /* Невидимый «мост» под пунктом с подменю — только по ширине пункта, чтобы не переключать соседей */
-        .nav__item:has(.subnav)::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 24px;
-            pointer-events: auto;
-        }
-
-        /* Невидимая «крыша» над подменю — курсор попадает в зону подменю при движении вниз */
-        .subnav::before {
-            content: '';
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            height: 24px;
-        }
-
-        /* Выпадающее меню — жёстко в контейнере шапки (не смещается при наведении на крайние пункты) */
-        .subnav {
-            position: fixed;
-            top: var(--header-height);
-            left: 50%;
-            transform: translateX(-50%) translateY(-12px);
-            width: calc(100% - 40px);
-            max-width: var(--container-width);
-            box-sizing: border-box;
-            background: var(--bg-card);
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            border: 1px solid #222;
-            border-top: 2px solid var(--accent);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
-        }
-
-        .nav__item:hover .subnav,
-        .subnav:hover {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: translateX(-50%) translateY(0);
-            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0s;
-        }
-
-        .subnav-link {
-            display: flex;
-            align-items: flex-start;
-            padding: 16px;
-            font-size: 11px;
-            line-height: 1.3;
-            text-transform: uppercase;
-            font-weight: 600;
-            color: var(--text-main);
-            min-height: 120px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
-        }
-
-        .subnav-link::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.25) 40%, rgba(0, 0, 0, 0.85) 100%);
-            pointer-events: none;
-        }
-
-        .subnav-link span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .subnav-link:hover::before {
-            background: rgba(0, 0, 0, 0.35);
-        }
-
-        .subnav-link:hover {
-            color: var(--text-main);
-        }
-
-        /* Пункт «В раздел» — в стиле сайта */
-        .subnav-link.subnav-link--section {
-            grid-column: 1 / -1;
-            background: rgba(255, 255, 255, 0.04) !important;
-            color: var(--accent);
-            min-height: 0;
-            padding: 12px 16px;
-            font-size: 12px;
-            font-weight: 600;
-            text-shadow: none;
-            border: 1px solid #333;
-        }
-
-        .subnav-link.subnav-link--section::before {
-            display: none;
-        }
-
-        .subnav-link.subnav-link--section:hover {
-            background: rgba(255, 255, 255, 0.08) !important;
-            color: var(--accent);
-            border-color: #444;
-        }
-
-        .nav__item--cta {
-            margin-left: auto;
-        }
-
-        .nav__link--btn {
-            background: var(--accent);
-            color: #fff !important;
-            padding: 10px 18px;
-        }
-
-        .nav__link--btn:hover {
-            opacity: 0.9;
-            color: #fff !important;
-        }
-
-        /* --- ГЛАВНАЯ: HERO --- */
-        .hero {
-            height: 80vh;
-            margin-top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/шапка1.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            text-align: center;
-        }
-
-        .hero__content h1 {
-            font-size: 48px;
-            text-transform: uppercase;
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
-
-        .hero__content h1 span {
-            color: var(--accent);
-            display: block;
-            font-size: 24px;
-            margin-top: 10px;
-        }
-
-        .hero__promo {
-            background: rgba(230, 57, 70, 0.1);
-            border-left: 4px solid var(--accent);
-            padding: 15px;
-            display: inline-block;
-            margin-top: 20px;
-        }
-
-        /* --- СЕКЦИИ --- */
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            font-size: 32px;
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title span {
-            color: var(--accent);
-        }
-
-        /* Услуги */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid #222;
-            transition: var(--transition);
-        }
-
-        .service-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .service-card__img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .service-card__img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s;
-        }
-
-        .service-card:hover .service-card__img img {
-            transform: scale(1.1);
-        }
-
-        .service-card__body {
-            padding: 25px;
-        }
-
-        .service-card__title {
-            font-size: 18px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            height: 50px;
-        }
-
-        .service-card__price {
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 20px;
-            display: block;
-            margin-bottom: 15px;
-        }
-
-        .btn-card {
-            border: 1px solid #444;
-            padding: 10px 20px;
-            font-size: 12px;
-            text-transform: uppercase;
-            display: inline-block;
-        }
-
-        .btn-card:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* О компании */
-        .about-block {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            color: var(--text-gray);
-        }
-
-        /* Примеры работ */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .portfolio-item {
-            position: relative;
-            overflow: hidden;
-            height: 250px;
-        }
-
-        .portfolio-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(230, 57, 70, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-
-        /* Преимущества */
-        .adv-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            text-align: center;
-        }
-
-        .adv-item i {
-            font-size: 40px;
-            color: var(--accent);
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .adv-item h3 {
-            font-size: 16px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        /* Отзывы */
-        .reviews-container {
-            background: #111;
-            padding: 40px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .yandex-placeholder {
-            border: 1px dashed #444;
-            padding: 50px;
-            color: var(--text-gray);
-        }
-
-        /* Новости */
-        .news-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .news-header a:hover {
-            color: var(--accent);
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .news-card {
-            background: var(--bg-card);
-            border: 1px solid transparent;
-            transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
-            overflow: hidden;
-        }
-
-        .news-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
-        }
-
-        .news-card img {
-            height: 180px;
-            width: 100%;
-            object-fit: cover;
-            transition: transform var(--transition);
-        }
-
-        .news-card:hover img {
-            transform: scale(1.08);
-        }
-
-        .news-card__body {
-            padding: 20px;
-        }
-
-        .news-card__title {
-            font-size: 16px;
-            margin-bottom: 10px;
-            transition: color var(--transition);
-        }
-
-        .news-card:hover .news-card__title {
-            color: var(--accent);
-        }
-
-        /* Подвал — отступы и сетка в ритме контейнера */
-        .footer {
-            background: #050505;
-            border-top: 1px solid #222;
-        }
-
-        .footer .container {
-            padding-left: max(var(--footer-padding-x), env(safe-area-inset-left));
-            padding-right: max(var(--footer-padding-x), env(safe-area-inset-right));
-        }
-
-        .footer__top {
-            padding: 64px 0 52px;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        .footer__top .container {
-            display: flex;
-            justify-content: space-between;
-            gap: var(--footer-gap-row) var(--footer-gap-col);
-            align-items: start;
-        }
-
-        .footer-brand img {
-            height: 44px;
-            width: auto;
-            margin-bottom: 18px;
-            display: block;
-        }
-
-        .footer-brand p {
-            color: var(--text-gray);
-            font-size: 14px;
-            line-height: 1.7;
-            max-width: 300px;
-        }
-
-        .footer-nav-block .footer-h3 {
-            margin-bottom: 18px;
-        }
-
-        .footer-nav-block .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 32px;
-        }
-
-        .footer-nav-block .footer-links li {
-            margin: 0;
-        }
-
-        .footer-contact {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .footer-contact .footer-h3 {
-            margin-bottom: 6px;
-        }
-
-        .footer-contact-item {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.55;
-        }
-
-        .footer-contact-item a {
-            color: var(--text-gray);
-        }
-
-        .footer-contact-item a:hover {
-            color: var(--accent);
-        }
-
-        .footer-order-btn {
-            display: inline-block;
-            margin-top: 10px;
-            background: var(--accent);
-            color: #fff;
-            padding: 12px 24px;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            transition: var(--transition);
-            width: fit-content;
-        }
-
-        .footer-order-btn:hover {
-            opacity: 0.9;
-            color: #fff;
-        }
-
-        .footer__bottom {
-            padding: 52px 0 64px;
-        }
-
-        .footer__bottom .container {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: var(--footer-bottom-gap) var(--footer-gap-col);
-        }
-
-        .footer-col {
-            min-width: 0;
-        }
-
-        .footer-h3 {
-            text-transform: uppercase;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            margin-bottom: 22px;
-            color: var(--accent);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 14px;
-            font-size: 14px;
-        }
-
-        .footer-links li:last-child {
-            margin-bottom: 0;
-        }
-
-        .footer-links a {
-            color: var(--text-gray);
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .footer__copy {
-            padding: 26px 0;
-            border-top: 1px solid #111;
-            font-size: 12px;
-            color: #555;
-            text-align: center;
-        }
-
-        /* Мобильное меню (бургер) */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 12px;
-            margin: 0;
-            margin-left: auto;
-            margin-right: env(safe-area-inset-right, 0);
-            flex-shrink: 0;
-            z-index: 1002;
-            transition: var(--transition);
-            min-width: 44px;
-            min-height: 44px;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .hamburger span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: #fff;
-            margin: 5px 0;
-            transition: var(--transition);
-        }
-
-        /* Крестик: обе линии в одну точку по центру, только поворот ±45° */
-        .hamburger.is-open span:nth-child(1),
-        .hamburger.is-open span:nth-child(3) {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin: 0;
-            width: 24px;
-            transform: translate(-50%, -50%) rotate(45deg);
-        }
-
-        .hamburger.is-open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.is-open span:nth-child(3) {
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-
-        .hamburger.is-open {
-            padding-right: 16px;
-        }
-
-        /* Панель мобильного меню */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 999;
-            overflow-y: auto;
-            padding: calc(var(--header-height) + 20px) max(20px, env(safe-area-inset-right)) 40px max(20px, env(safe-area-inset-left));
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .mobile-menu.is-open {
-            display: block;
-        }
-
-        .mobile-menu__top {
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #222;
-        }
-
-        .mobile-menu__top .mobile-menu__phone {
-            font-size: 18px;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .mobile-menu__top .mobile-menu__order {
-            display: inline-block;
-            text-align: center;
-            background: var(--accent);
-            color: #fff;
-            padding: 14px 20px;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 13px;
-        }
-
-        .mobile-menu .nav {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            align-items: stretch;
-        }
-
-        .mobile-menu .nav__item {
-            position: static;
-            margin: 0;
-            border-bottom: 1px solid #222;
-        }
-
-        .mobile-menu .nav__link {
-            display: block;
-            padding: 16px 0;
-            font-size: 14px;
-            white-space: normal;
-        }
-
-        .mobile-menu .nav__item:has(.subnav)::after,
-        .mobile-menu .subnav::before {
-            display: none;
-        }
-
-        .mobile-menu .subnav {
-            position: static;
-            inset: auto;
-            top: auto;
-            left: auto;
-            right: auto;
-            bottom: auto;
-            transform: none;
-            width: auto;
-            max-width: none;
-            display: grid !important;
-            grid-template-columns: 1fr;
-            gap: 0;
-            margin: 0;
-            padding: 0 0 10px 16px;
-            border: none;
-            border-top: none;
-            box-shadow: none;
-            background: transparent;
-            box-sizing: border-box;
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            visibility: visible;
-            pointer-events: auto;
-            transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.25s ease;
-        }
-
-        .mobile-menu .nav__item.is-open .subnav {
-            max-height: 500px;
-            opacity: 1;
-        }
-
-        .mobile-menu .nav__item:hover .subnav,
-        .mobile-menu .subnav:hover {
-            transform: none;
-        }
-
-        .mobile-menu .subnav-link {
-            min-height: 0;
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 13px;
-            background-image: none !important;
-            background: rgba(255, 255, 255, 0.05);
-            margin-bottom: 4px;
-            border-radius: 4px;
-        }
-
-        .mobile-menu .subnav-link.subnav-link--section {
-            margin-bottom: 8px;
-        }
-
-        .mobile-menu .nav__item--cta {
-            margin-left: 0;
-            margin-top: 16px;
-        }
-
-        .mobile-menu .nav__link--btn {
-            text-align: center;
-        }
-
-        /* Подменю триггер на мобильном */
-        .nav__link.has-sub::after {
-            content: '▾';
-            margin-left: 4px;
-            font-size: 10px;
-        }
-
-        .mobile-menu .nav__link.has-sub::after {
-            float: right;
-            transition: transform 0.2s;
-        }
-
-        .mobile-menu .nav__item.is-open>.nav__link.has-sub::after {
-            transform: rotate(180deg);
-        }
-
-        /* ========== АДАПТИВ: ПЛАНШЕТ И МЕНЬШЕ ========== */
-        @media (max-width: 1200px) {
-            :root {
-                --container-width: 100%;
-            }
-
-            .container {
-                padding: 0 24px;
-            }
-
-            .section {
-                padding: 60px 0;
-            }
-
-            .section-title {
-                font-size: 28px;
-                margin-bottom: 40px;
-            }
-
-            .services-grid {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-                gap: 20px;
-            }
-
-            .portfolio-grid {
-                gap: 12px;
-            }
-
-            .portfolio-item {
-                height: 220px;
-            }
-
-            .adv-grid {
-                gap: 24px;
-            }
-
-            .footer__top {
-                padding: 56px 0 44px;
-            }
-
-            .footer__top .container {
-                gap: 40px 44px;
-            }
-
-            .footer__bottom {
-                padding: 44px 0 52px;
-            }
-
-            .footer__bottom .container {
-                gap: 36px 44px;
-            }
-        }
-
-        @media (max-width: 1100px) {
-            .header__logo {
-                left: max(24px, env(safe-area-inset-left));
-            }
-
-            .header-top__inner {
-                padding-left: calc(var(--logo-width) + 24px);
-            }
-
-            .header-bot__inner {
-                padding-left: calc(var(--logo-width) + 24px);
-            }
-
-            .nav {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                min-width: 44px;
-                min-height: 44px;
-            }
-
-            .subnav {
-                display: none !important;
-            }
-
-            .about-block {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .adv-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 24px;
-            }
-
-            .news-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-
-            .footer__top {
-                padding: 48px 0 40px;
-            }
-
-            .footer__top .container {
-                grid-template-columns: 1fr 1fr;
-                gap: 36px 40px;
-            }
-
-            .footer__bottom {
-                padding: 40px 0 48px;
-            }
-
-            .footer__bottom .container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 32px 40px;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .hero {
-                height: 70vh;
-            }
-
-            .hero__content h1 {
-                font-size: 38px;
-            }
-
-            .hero__content h1 span {
-                font-size: 20px;
-            }
-        }
-
-        /* Планшет портрет */
-        @media (max-width: 768px) {
-            :root {
-                --header-top-height: 36px;
-                --header-bot-height: 60px;
-                --logo-width: 140px;
-            }
-
-            .container {
-                padding: 0 16px;
-            }
-
-            .section {
-                padding: 48px 0;
-            }
-
-            .section-title {
-                font-size: 24px;
-                margin-bottom: 32px;
-            }
-
-            .header__logo {
-                left: max(16px, env(safe-area-inset-left));
-            }
-
-            .header-top {
-                min-height: var(--header-top-height);
-                background: #0d0d0d;
-                border-bottom-color: #1a1a1a;
-            }
-
-            .header-top__inner {
-                padding-left: calc(var(--logo-width) + 16px);
-                padding-right: max(12px, env(safe-area-inset-right));
-                flex-wrap: nowrap;
-                gap: 12px;
-                min-height: var(--header-top-height);
-            }
-
-            .header-top__left {
-                flex-shrink: 0;
-            }
-
-            .header-top__contacts {
-                gap: 10px;
-                flex-shrink: 1;
-                min-width: 0;
-            }
-
-            .header-top__contacts a {
-                font-size: 12px;
-                white-space: nowrap;
-            }
-
-            .header-top__nav {
-                gap: 10px;
-            }
-
-            .header-top__nav a {
-                font-size: 11px;
-            }
-
-            .header-top__write {
-                padding: 8px 14px;
-                font-size: 10px;
-                flex-shrink: 0;
-            }
-
-            .header-bot__inner {
-                padding-left: calc(var(--logo-width) + 16px);
-                padding-right: max(12px, env(safe-area-inset-right));
-            }
-
-            .hero {
-                height: 60vh;
-                min-height: 320px;
-            }
-
-            .hero__content h1 {
-                font-size: 28px;
-            }
-
-            .hero__content h1 span {
-                font-size: 16px;
-                margin-top: 6px;
-            }
-
-            .hero__promo {
-                padding: 12px;
-                font-size: 13px;
-                margin-top: 16px;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .service-card__img {
-                height: 180px;
-            }
-
-            .service-card__body {
-                padding: 20px;
-            }
-
-            .service-card__title {
-                font-size: 16px;
-                height: auto;
-                min-height: 44px;
-            }
-
-            .service-card__price {
-                font-size: 18px;
-            }
-
-            .about-block {
-                gap: 28px;
-            }
-
-            .about-block .section-title {
-                font-size: 22px;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .portfolio-item {
-                height: 240px;
-            }
-
-            .adv-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                text-align: center;
-            }
-
-            .adv-item i {
-                font-size: 36px;
-            }
-
-            .adv-item h3 {
-                font-size: 15px;
-            }
-
-            .reviews-container {
-                padding: 24px 16px;
-            }
-
-            .yandex-placeholder {
-                padding: 32px 16px;
-                font-size: 14px;
-            }
-
-            .news-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-                margin-bottom: 24px;
-            }
-
-            .news-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .news-card img {
-                height: 160px;
-            }
-
-            .news-card__body {
-                padding: 16px;
-            }
-
-            .news-card__title {
-                font-size: 15px;
-            }
-
-            .footer__top {
-                padding: 44px 0 32px;
-            }
-
-            .footer__top .container {
-                gap: 32px 0;
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .footer-brand {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .footer-brand p {
-                max-width: none;
-            }
-
-            .footer-nav-block .footer-links {
-                justify-content: center;
-            }
-
-            .footer-contact {
-                align-items: center;
-            }
-
-            .footer-order-btn {
-                align-self: center;
-            }
-
-            .footer__bottom {
-                padding: 36px 0 44px;
-            }
-
-            .footer__bottom .container {
-                grid-template-columns: 1fr;
-                gap: 36px 24px;
-                text-align: center;
-            }
-
-            .footer-col {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .footer-h3 {
-                font-size: 14px;
-                margin-bottom: 16px;
-            }
-
-            .footer-links li {
-                margin-bottom: 8px;
-            }
-        }
-
-        /* Мобильный альбом и маленький планшет */
-        @media (max-width: 600px) {
-            .header-top__inner {
-                padding-left: calc(var(--logo-width) + 12px);
-                padding-right: max(12px, env(safe-area-inset-right));
-            }
-
-            .header-top__right {
-                gap: 10px;
-                flex-shrink: 0;
-            }
-
-            .header-top__contacts a:not([href^="tel:"]) {
-                display: none;
-            }
-
-            .header-top__contacts a[href^="tel:"] {
-                font-size: 13px;
-            }
-
-            .header-top__write {
-                padding: 8px 12px;
-                font-size: 10px;
-            }
-        }
-
-        /* Мобильный портрет: одна строка шапки (логотип + бургер), контакты в меню */
-        @media (max-width: 480px) {
-            :root {
-                --header-top-height: 0px;
-                --header-bot-height: 52px;
-                --logo-width: 110px;
-            }
-
-            .container {
-                padding: 0 12px;
-            }
-
-            .section {
-                padding: 36px 12px;
-            }
-
-            .section-title {
-                font-size: 20px;
-                margin-bottom: 24px;
-            }
-
-            .header-top {
-                display: none;
-            }
-
-            .header__logo {
-                left: max(12px, env(safe-area-inset-left));
-                height: 52px;
-                top: env(safe-area-inset-top, 0);
-            }
-
-            .header-bot__inner {
-                padding-left: calc(var(--logo-width) + 12px);
-                padding-right: max(8px, env(safe-area-inset-right));
-            }
-
-            .mobile-menu__top {
-                display: flex;
-            }
-
-            .hero {
-                height: 55vh;
-                min-height: 280px;
-            }
-
-            .hero__content h1 {
-                font-size: 22px;
-                line-height: 1.2;
-            }
-
-            .hero__content h1 span {
-                font-size: 14px;
-            }
-
-            .hero__promo {
-                padding: 10px;
-                font-size: 12px;
-                margin-top: 12px;
-            }
-
-            .hero__promo p {
-                line-height: 1.4;
-            }
-
-            .service-card__img {
-                height: 160px;
-            }
-
-            .service-card__body {
-                padding: 16px;
-            }
-
-            .service-card__title {
-                font-size: 15px;
-            }
-
-            .btn-card {
-                padding: 12px 18px;
-                font-size: 11px;
-                min-height: 44px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .portfolio-item {
-                height: 200px;
-            }
-
-            .footer__top {
-                padding: 32px 0 28px;
-            }
-
-            .footer__bottom {
-                padding: 28px 0 32px;
-            }
-
-            .footer__bottom .container {
-                gap: 28px 20px;
-            }
-
-            .footer__copy {
-                padding: 22px 0;
-                font-size: 11px;
-            }
-        }
-
-        /* Очень маленькие экраны */
-        @media (max-width: 360px) {
-            :root {
-                --header-top-height: 0px;
-                --header-bot-height: 48px;
-                --logo-width: 90px;
-            }
-
-            .header-top {
-                display: none;
-            }
-
-            .header__logo {
-                left: max(8px, env(safe-area-inset-left));
-                height: 48px;
-                top: env(safe-area-inset-top, 0);
-            }
-
-            .header-bot__inner {
-                padding-left: calc(var(--logo-width) + 8px);
-                padding-right: max(8px, env(safe-area-inset-right));
-            }
-
-            .mobile-menu__top {
-                display: flex;
-            }
-
-            .hero__content h1 {
-                font-size: 18px;
-            }
-
-            .hero__content h1 span {
-                font-size: 12px;
-            }
-
-            .section-title {
-                font-size: 18px;
-            }
-
-            .container {
-                padding: 0 10px;
-            }
-        }
-
-        /* Отключение hover-эффектов на тач-устройствах (опционально) */
-        @media (hover: none) {
-            .service-card:hover {
-                transform: none;
-            }
-
-            .service-card:hover .service-card__img img {
-                transform: none;
-            }
-
-            .news-card:hover {
-                transform: none;
-            }
-
-            .news-card:hover img {
-                transform: none;
-            }
-
-            .portfolio-item .portfolio-overlay {
-                opacity: 0.85;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -1543,9 +20,9 @@
                 <div class="header-top__left">
                     <nav class="header-top__nav">
                         <a href="./">Главная</a>
-                        <a href="#about">О нас</a>
-                        <a href="#">Галерея</a>
-                        <a href="#contacts">Контакты</a>
+                        <a href="about.html">О нас</a>
+                        <a href="#gallery">Галерея</a>
+                        <a href="contacts.html">Контакты</a>
                     </nav>
                 </div>
                 <div class="header-top__right">
@@ -1553,7 +30,7 @@
                         <a href="tel:+74951339664">+7 (965) 158-53-14</a>
                         <a href="#" target="_blank" rel="noopener">@shelbycar1</a>
                     </div>
-                    <a href="#order" class="header-top__write">ОФОРМИТЬ ЗАКАЗ</a>
+                    <a href="contacts.html#contact-form" class="header-top__write">ОФОРМИТЬ ЗАКАЗ</a>
                 </div>
             </div>
         </div>
@@ -1564,42 +41,48 @@
                 <nav class="header-bot__navigation">
                     <ul class="nav">
                         <li class="nav__item">
-                            <a href="#" class="nav__link">Кузов ▾</a>
+                            <a href="category-kuzov.html" class="nav__link">Кузов ▾</a>
                             <div class="subnav">
-                                <a href="#" class="subnav-link"
+                                <a href="category-kuzov.html" class="subnav-link subnav-link--section"><span>В раздел
+                                        "Кузов"</span></a>
+                                <a href="service-polirovka-kuzova.html" class="subnav-link"
                                     style="background-image:url('assets/polirovka.jpg')"><span>Полировка</span></a>
-                                <a href="#" class="subnav-link"
+                                <a href="service-okleika-kuzova.html" class="subnav-link"
                                     style="background-image:url('assets/okleika.jpg')"><span>Оклейка</span></a>
-                                <a href="#" class="subnav-link"
+                                <a href="service-pokraska-kuzova.html" class="subnav-link"
                                     style="background-image:url('assets/pokraska.jpg')"><span>Покраска</span></a>
-                                <a href="#" class="subnav-link"
+                                <a href="service-pokrytie-kuzova.html" class="subnav-link"
                                     style="background-image:url('assets/pokrytie.jpg')"><span>Покрытие</span></a>
                             </div>
                         </li>
                         <li class="nav__item">
-                            <a href="#" class="nav__link">Салон ▾</a>
+                            <a href="category-salon.html" class="nav__link">Салон ▾</a>
                             <div class="subnav">
-                                <a href="#" class="subnav-link"
+                                <a href="category-salon.html" class="subnav-link subnav-link--section"><span>В раздел
+                                        "Салон"</span></a>
+                                <a href="service-himchistka-salona.html" class="subnav-link"
                                     style="background-image:url('assets/himia.jpg')"><span>Химчистка</span></a>
-                                <a href="#" class="subnav-link"
+                                <a href="service-restavratsiya-salona.html" class="subnav-link"
                                     style="background-image:url('assets/res.jpg')"><span>Реставрация</span></a>
-                                <a href="#" class="subnav-link"
+                                <a href="service-pereshiv-salona.html" class="subnav-link"
                                     style="background-image:url('assets/pereshiv.jpg')"><span>Перешив</span></a>
-                                <a href="#" class="subnav-link"
+                                <a href="service-shumoizolyatsiya.html" class="subnav-link"
                                     style="background-image:url('assets/shum.jpg')"><span>Шумоизоляция</span></a>
                             </div>
                         </li>
-                        <li class="nav__item"><a href="#" class="nav__link">Предпродажная подготовка</a></li>
-                        <li class="nav__item"><a href="#" class="nav__link">Замена стекол</a></li>
-                        <li class="nav__item"><a href="#" class="nav__link">Покраска колесных дисков</a></li>
+                        <li class="nav__item"><a href="category-predprodazhnaya.html" class="nav__link">Предпродажная подготовка</a></li>
+                        <li class="nav__item"><a href="category-zamena-stekol.html" class="nav__link">Замена стекол</a></li>
+                        <li class="nav__item"><a href="category-pokraska-diskov.html" class="nav__link">Покраска колесных дисков</a></li>
                         <li class="nav__item">
-                            <a href="#" class="nav__link">Водный и воздушный транспорт ▾</a>
+                            <a href="category-vodny-vozdushny.html" class="nav__link">Водный и воздушный транспорт ▾</a>
                             <div class="subnav">
+                                <a href="category-vodny-vozdushny.html" class="subnav-link subnav-link--section"><span>В
+                                        раздел "Водный и воздушный транспорт"</span></a>
 
-                                <a href="#" class="subnav-link"
+                                <a href="service-deteiling-vodnogo.html" class="subnav-link"
                                     style="background-image:url('assets/voda.jpg')"><span>Полировка и химчистка
                                         водного транспорта</span></a>
-                                <a href="#" class="subnav-link"
+                                <a href="service-deteiling-vozdushnogo.html" class="subnav-link"
                                     style="background-image:url('assets/air.jpg')"><span>Полировка и химчистка
                                         воздушного транспорта</span></a>
                             </div>
@@ -1616,49 +99,55 @@
         <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
             <div class="mobile-menu__top">
                 <a href="tel:+74951339664" class="mobile-menu__phone">+7 (965) 158-53-14</a>
-                <a href="#order" class="mobile-menu__order">Оформить заказ</a>
+                <a href="contacts.html#contact-form" class="mobile-menu__order">Оформить заказ</a>
             </div>
             <nav class="header-bot__navigation">
                 <ul class="nav">
                     <li class="nav__item">
-                        <a href="#" class="nav__link has-sub">Кузов ▾</a>
+                        <a href="category-kuzov.html" class="nav__link has-sub">Кузов ▾</a>
                         <div class="subnav">
+                            <a href="category-kuzov.html" class="subnav-link subnav-link--section"><span>В раздел
+                                    "Кузов"</span></a>
 
-                            <a href="#" class="subnav-link"
+                            <a href="service-polirovka-kuzova.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Полировка</span></a>
-                            <a href="#" class="subnav-link"
+                            <a href="service-okleika-kuzova.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Оклейка</span></a>
-                            <a href="#" class="subnav-link"
+                            <a href="service-pokraska-kuzova.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Покраска</span></a>
-                            <a href="#" class="subnav-link"
+                            <a href="service-pokrytie-kuzova.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Покрытие</span></a>
                         </div>
                     </li>
                     <li class="nav__item">
-                        <a href="#" class="nav__link has-sub">Салон ▾</a>
+                        <a href="category-salon.html" class="nav__link has-sub">Салон ▾</a>
                         <div class="subnav">
+                            <a href="category-salon.html" class="subnav-link subnav-link--section"><span>В раздел
+                                    "Салон"</span></a>
 
-                            <a href="#" class="subnav-link"
+                            <a href="service-himchistka-salona.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Химчистка</span></a>
-                            <a href="#" class="subnav-link"
+                            <a href="service-restavratsiya-salona.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Реставрация</span></a>
-                            <a href="#" class="subnav-link"
+                            <a href="service-pereshiv-salona.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Перешив</span></a>
-                            <a href="#" class="subnav-link"
+                            <a href="service-shumoizolyatsiya.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Шумоизоляция</span></a>
                         </div>
                     </li>
-                    <li class="nav__item"><a href="#" class="nav__link">Предпродажная подготовка</a></li>
-                    <li class="nav__item"><a href="#" class="nav__link">Замена стекол</a></li>
-                    <li class="nav__item"><a href="#" class="nav__link">Покраска колесных дисков</a></li>
+                    <li class="nav__item"><a href="category-predprodazhnaya.html" class="nav__link">Предпродажная подготовка</a></li>
+                    <li class="nav__item"><a href="category-zamena-stekol.html" class="nav__link">Замена стекол</a></li>
+                    <li class="nav__item"><a href="category-pokraska-diskov.html" class="nav__link">Покраска колесных дисков</a></li>
                     <li class="nav__item">
-                        <a href="#" class="nav__link has-sub">Водный и воздушный транспорт ▾</a>
+                        <a href="category-vodny-vozdushny.html" class="nav__link has-sub">Водный и воздушный транспорт ▾</a>
                         <div class="subnav">
+                            <a href="category-vodny-vozdushny.html" class="subnav-link subnav-link--section"><span>В
+                                    раздел "Водный и воздушный транспорт"</span></a>
 
-                            <a href="#" class="subnav-link"
+                            <a href="service-deteiling-vodnogo.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Полировка и химчистка водного
                                     транспорта</span></a>
-                            <a href="#" class="subnav-link"
+                            <a href="service-deteiling-vozdushnogo.html" class="subnav-link"
                                 style="background-image:url('assets/шапка2.jpg')"><span>Полировка и химчистка
                                     воздушного транспорта</span></a>
                         </div>
@@ -1690,7 +179,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Полировка кузова</h3>
                         <span class="service-card__price">от 15 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="service-polirovka-kuzova.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1698,7 +187,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Химчистка салона</h3>
                         <span class="service-card__price">от 8 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="service-himchistka-salona.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1706,7 +195,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Реставрация салона</h3>
                         <span class="service-card__price">от 5 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="service-restavratsiya-salona.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1714,7 +203,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Перешив салона</h3>
                         <span class="service-card__price">от 40 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="service-pereshiv-salona.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1722,7 +211,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Оклейка кузова</h3>
                         <span class="service-card__price">от 60 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="service-okleika-kuzova.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1730,7 +219,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Предпродажная подготовка</h3>
                         <span class="service-card__price">от 12 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="category-predprodazhnaya.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1738,7 +227,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Шумоизоляция</h3>
                         <span class="service-card__price">от 35 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="service-shumoizolyatsiya.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1746,7 +235,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Покраска кузова (Малярные работы)</h3>
                         <span class="service-card__price">от 10 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="service-pokraska-kuzova.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1754,7 +243,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Замена лобовых стекол</h3>
                         <span class="service-card__price">от 7 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="category-zamena-stekol.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1762,7 +251,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Покраска колёсных дисков</h3>
                         <span class="service-card__price">от 4 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="category-pokraska-diskov.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1770,7 +259,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Детейлинг водного транспорта</h3>
                         <span class="service-card__price">от 20 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="service-deteiling-vodnogo.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1778,7 +267,7 @@
                     <div class="service-card__body">
                         <h3 class="service-card__title">Детейлинг воздушного транспорта</h3>
                         <span class="service-card__price">от 50 000 ₽</span>
-                        <a href="#" class="btn-card">Подробнее</a>
+                        <a href="service-deteiling-vozdushnogo.html" class="btn-card">Подробнее</a>
                     </div>
                 </div>
             </div>
@@ -1800,7 +289,7 @@
             </div>
         </section>
 
-        <section class="section container">
+        <section class="section container" id="gallery">
             <h2 class="section-title">Примеры <span>Работ</span></h2>
             <div class="portfolio-grid">
                 <div class="portfolio-item">
@@ -1856,7 +345,7 @@
         <section class="section container">
             <div class="news-header">
                 <h2 class="section-title" style="margin-bottom: 0;">Последние <span>Новости</span></h2>
-                <a href="#" style="text-decoration: underline;">Все новости</a>
+                <a href="news.html" style="text-decoration: underline;">Все новости</a>
             </div>
             <div class="news-grid">
                 <div class="news-card">
@@ -1898,9 +387,9 @@
                     <h3 class="footer-h3">Навигация</h3>
                     <ul class="footer-links">
                         <li><a href="./">Главная</a></li>
-                        <li><a href="#about">О нас</a></li>
-                        <li><a href="#">Галерея</a></li>
-                        <li><a href="#contacts">Контакты</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="#gallery">Галерея</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
                     </ul>
                 </nav>
                 <div class="footer-contact">
@@ -1910,7 +399,7 @@
                     <div class="footer-contact-item"><a
                             href="mailto:info@performanceauto.ru">info@shelbycar.ru</a></div>
                     <div class="footer-contact-item"><a href="#" target="_blank" rel="noopener">@shelbycar1</a></div>
-                    <a href="#order" class="footer-order-btn">Оформить заказ</a>
+                    <a href="contacts.html#contact-form" class="footer-order-btn">Оформить заказ</a>
                 </div>
             </div>
         </div>
@@ -1919,37 +408,37 @@
                 <div class="footer-col">
                     <h3 class="footer-h3">Кузов</h3>
                     <ul class="footer-links">
-                        <li><a href="#">В раздел</a></li>
-                        <li><a href="#">Полировка</a></li>
-                        <li><a href="#">Оклейка</a></li>
-                        <li><a href="#">Покраска</a></li>
-                        <li><a href="#">Покрытие</a></li>
+                        <li><a href="category-kuzov.html">В раздел</a></li>
+                        <li><a href="service-polirovka-kuzova.html">Полировка</a></li>
+                        <li><a href="service-okleika-kuzova.html">Оклейка</a></li>
+                        <li><a href="service-pokraska-kuzova.html">Покраска</a></li>
+                        <li><a href="service-pokrytie-kuzova.html">Покрытие</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3 class="footer-h3">Салон</h3>
                     <ul class="footer-links">
-                        <li><a href="#">В раздел</a></li>
-                        <li><a href="#">Химчистка</a></li>
-                        <li><a href="#">Реставрация</a></li>
-                        <li><a href="#">Перешив</a></li>
-                        <li><a href="#">Шумоизоляция</a></li>
+                        <li><a href="category-salon.html">В раздел</a></li>
+                        <li><a href="service-himchistka-salona.html">Химчистка</a></li>
+                        <li><a href="service-restavratsiya-salona.html">Реставрация</a></li>
+                        <li><a href="service-pereshiv-salona.html">Перешив</a></li>
+                        <li><a href="service-shumoizolyatsiya.html">Шумоизоляция</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3 class="footer-h3">Услуги</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Предпродажная подготовка</a></li>
-                        <li><a href="#">Замена стекол</a></li>
-                        <li><a href="#">Покраска колесных дисков</a></li>
+                        <li><a href="category-predprodazhnaya.html">Предпродажная подготовка</a></li>
+                        <li><a href="category-zamena-stekol.html">Замена стекол</a></li>
+                        <li><a href="category-pokraska-diskov.html">Покраска колесных дисков</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3 class="footer-h3">Водный и воздушный транспорт</h3>
                     <ul class="footer-links">
-                        <li><a href="#">В раздел</a></li>
-                        <li><a href="#">Полировка и химчистка водного транспорта</a></li>
-                        <li><a href="#">Полировка и химчистка воздушного транспорта</a></li>
+                        <li><a href="category-vodny-vozdushny.html">В раздел</a></li>
+                        <li><a href="service-deteiling-vodnogo.html">Полировка и химчистка водного транспорта</a></li>
+                        <li><a href="service-deteiling-vozdushnogo.html">Полировка и химчистка воздушного транспорта</a></li>
                     </ul>
                 </div>
             </div>
@@ -1959,77 +448,7 @@
         </div>
     </footer>
 
-    <script>
-        // Фиксация шапки при скролле
-        window.addEventListener('scroll', function () {
-            const header = document.querySelector('.header');
-            if (header) {
-                header.style.boxShadow = window.scrollY > 100 ? "0 10px 30px rgba(0,0,0,0.5)" : "none";
-            }
-        });
-
-        // Мобильное меню: бургер и подменю
-        (function () {
-            var hamburger = document.querySelector('.hamburger');
-            var mobileMenu = document.getElementById('mobileMenu');
-            var body = document.body;
-
-            if (!hamburger || !mobileMenu) return;
-
-            function openMenu() {
-                hamburger.classList.add('is-open');
-                hamburger.setAttribute('aria-expanded', 'true');
-                mobileMenu.classList.add('is-open');
-                mobileMenu.setAttribute('aria-hidden', 'false');
-                body.style.overflow = 'hidden';
-            }
-
-            function closeMenu() {
-                hamburger.classList.remove('is-open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                mobileMenu.classList.remove('is-open');
-                mobileMenu.setAttribute('aria-hidden', 'true');
-                body.style.overflow = '';
-                mobileMenu.querySelectorAll('.nav__item.is-open').forEach(function (item) {
-                    item.classList.remove('is-open');
-                });
-            }
-
-            hamburger.addEventListener('click', function () {
-                if (mobileMenu.classList.contains('is-open')) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-
-            mobileMenu.querySelectorAll('.nav__link.has-sub').forEach(function (link) {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    var item = link.closest('.nav__item');
-                    var wasOpen = item.classList.contains('is-open');
-                    mobileMenu.querySelectorAll('.nav__item.is-open').forEach(function (i) { i.classList.remove('is-open'); });
-                    if (!wasOpen) item.classList.add('is-open');
-                });
-            });
-
-            mobileMenu.querySelectorAll('.subnav-link, .nav__link:not(.has-sub)').forEach(function (link) {
-                link.addEventListener('click', function () {
-                    if (!link.classList.contains('has-sub')) closeMenu();
-                });
-            });
-
-            window.addEventListener('resize', function () {
-                if (window.innerWidth > 1100 && mobileMenu.classList.contains('is-open')) {
-                    closeMenu();
-                }
-            });
-
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) closeMenu();
-            });
-        })();
-    </script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
