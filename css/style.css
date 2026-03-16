@@ -351,7 +351,7 @@ img {
 .hero {
     height: 80vh;
     margin-top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/шапка1.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/шапка1.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
